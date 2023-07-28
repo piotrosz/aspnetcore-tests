@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    body {
+        background-color: @Model.Settings.BackgroundColor;
+    }
+
+    h1 {
+        color: @Model.Settings.FontColor;
+        font-size: @(Model.Settings.FontSize)px;
+    }
+</style>
+
+<h1>@Model.Settings.Message</h1>
