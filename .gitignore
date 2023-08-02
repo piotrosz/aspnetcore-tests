@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 */wwwroot/*
+CustomTelemetryWebApi/CustomTelemetryWebApi/appsettings.Development.json
 
 # User-specific files
 *.rsuser
@@ -398,3 +399,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+.gitignore
+
