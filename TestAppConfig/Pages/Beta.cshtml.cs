@@ -9,6 +9,7 @@ namespace TestAppConfig.Pages;
 public class BetaModel : PageModel
 {
     public string AllFeaturesMessage { get; set; }
+
     public bool IsBetaFeature { get; set; }
 
     public async Task OnGet([FromServices]IFeatureManager featureManager)
@@ -24,7 +25,5 @@ public class BetaModel : PageModel
         AllFeaturesMessage = string.Join(",", featureNameList);
 
         IsBetaFeature = await featureManager.IsEnabledAsync("Beta");
-
-        
     }
 }
