@@ -1,9 +1,5 @@
 {
   "dependencies": {
-    "secrets1": {
-      "type": "secrets",
-      "connectionId": "VaultUri"
-    },
     "appConfig1": {
       "type": "appConfig",
       "connectionId": "AppConfig",
