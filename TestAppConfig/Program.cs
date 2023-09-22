@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.FeatureManagement;
+using Microsoft.FeatureManagement.FeatureFilters;
 using TestAppConfig;
+using TestAppConfig.FeatureFlags;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +23,13 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddFeatureManagement();
+builder.Services.AddFeatureManagement()
+    .AddFeatureFilter<TargetingFilter>();
 //builder.Services.AddFeatureManagement(builder.Configuration.GetSection("MyFeatureFlags"));
+
+builder.Services.AddSingleton<ITargetingContextAccessor, TestTargetingContextAccessor>();
 
 // Bind configuration "TestApp:Settings" section to the Settings object
 builder.Services.Configure<Settings>(builder.Configuration.GetSection("TestApp:Settings"));
