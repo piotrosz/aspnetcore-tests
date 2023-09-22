@@ -7,23 +7,22 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add Azure App Config
-string connectionString = builder.Configuration.GetConnectionString("AppConfig");
-//builder.Configuration.AddAzureAppConfiguration(connectionString);
+//string connectionString = builder.Configuration.GetConnectionString("AppConfig");
 
-builder.Configuration.AddAzureAppConfiguration(options =>
-{
-    options.Connect(connectionString)
-        // Load all keys that start with `TestApp:` and have no label
-        .Select("TestApp:*")
-        // Configure to reload configuration if the registered sentinel key is modified
-        .ConfigureRefresh(refreshOptions =>
-            refreshOptions.Register("TestApp:Settings:Sentinel", refreshAll: true))
-        .UseFeatureFlags(featureFlagOptions => { featureFlagOptions.CacheExpirationInterval = TimeSpan.FromMinutes(1); });
-});
+//builder.Configuration.AddAzureAppConfiguration(options =>
+//{
+//    options.Connect(connectionString)
+//        // Load all keys that start with `TestApp:` and have no label
+//        .Select("TestApp:*")
+//        // Configure to reload configuration if the registered sentinel key is modified
+//        .ConfigureRefresh(refreshOptions =>
+//            refreshOptions.Register("TestApp:Settings:Sentinel", refreshAll: true))
+//        .UseFeatureFlags(featureFlagOptions => { featureFlagOptions.CacheExpirationInterval = TimeSpan.FromMinutes(1); });
+//});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -31,7 +30,6 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddFeatureManagement()
     .AddFeatureFilter<TargetingFilter>();
-//builder.Services.AddFeatureManagement(builder.Configuration.GetSection("MyFeatureFlags"));
 
 builder.Services.AddSingleton<ITargetingContextAccessor, TestTargetingContextAccessor>();
 
@@ -52,7 +50,7 @@ var app = builder.Build();
 //}
 
 // Use Azure App Configuration middleware for dynamic configuration refresh.
-app.UseAzureAppConfiguration();
+//app.UseAzureAppConfiguration();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
