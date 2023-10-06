@@ -25,6 +25,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddFeatureManagement()
     .AddFeatureFilter<TargetingFilter>();
+    //.AddFeatureFilter<PercentageFilter>();
 
 builder.Services.AddSingleton<ITargetingContextAccessor, TestTargetingContextAccessor>();
 
